@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercise Timer</title>
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #000;
+        color: #f8f9fa;
+        height: 100vh;
+        padding: 10px;
+        box-sizing: border-box;
+      }
+
+      .circle {
+        width: 40vw;
+        height: 40vw;
+        max-width: 280px;
+        max-height: 280px;
+        border-radius: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 2em;
+        color: white;
+        animation: pulse 1s infinite;
+      }
+      .circle-2 {
+        width: 18vw;
+        height: 18vw;
+        max-width: 280px;
+        max-height: 280px;
+        border-radius: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 2em;
+        color: white;
+        animation: pulse-2 1s infinite;
+        animation-delay: 0.5s;
+        background-color: #0000002f;
+      }
+      .circle-3 {
+        width: 30vw;
+        height: 30vw;
+        max-width: 280px;
+        max-height: 280px;
+        border-radius: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 2em;
+        color: white;
+        animation: pulse-3 1s infinite;
+
+        background-color: #4948482f;
+      }
+
+      #timer-text {
+        font-size: 50px;
+        max-font-size: 50px;
+      }
+
+      #phase-text {
+        font-size: 20px;
+        margin-top: 10px;
+        color: aquamarine;
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(0.9);
+        }
+        50% {
+          transform: scale(1.2);
+        }
+        100% {
+          transform: scale(0.9);
+        }
+      }
+      @keyframes pulse-2 {
+        0% {
+          transform: scale(0.7);
+        }
+        50% {
+          transform: scale(1);
+        }
+        100% {
+          transform: scale(0.7);
+        }
+      }
+      @keyframes pulse-3 {
+        0% {
+          transform: scale(0.8);
+        }
+        50% {
+          transform: scale(1);
+        }
+        100% {
+          transform: scale(0.8);
+        }
+      }
+
+      .green {
+        background-color: green;
+      }
+
+      .red {
+        background-color: red;
+      }
+
+      .btn-custom {
+        width: 45%;
+        margin: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container text-center">
+      <h1>Exercise Timer</h1>
+      <hr />
+      <h3 style="color: aquamarine" id="exercise-title">Exercise 1</h3>
+      <p id="exercise-description">Description for Exercise 1</p>
+
+      <div style="display: flex; justify-content: center; align-items: center">
+        <div
+          id="timer-circle"
+          class="circle green mt-4 d-flex align-items-center justify-content-center"
+        >
+          <div class="circle-3">
+            <div class="circle-2">
+              <div
+                style="font-size: 50px; font-weight: 700; margin: 30px 0px"
+                id="timer-text"
+              >
+                5
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 18px">
+        <div id="phase-text" class="py-1">Breathe In</div>
+      </div>
+
+      <button id="start-btn" class="btn btn-primary mt-4">Start</button>
+      <div class="d-flex justify-content-center mt-4 flex-wrap">
+        <button id="prev-btn" class="btn btn-secondary btn-custom">
+          Previous
+        </button>
+        <button id="next-btn" class="btn btn-secondary btn-custom">Next</button>
+      </div>
+    </div>
+
+    <footer
+      style="background-color: #3937379a"
+      class="d-flex align-items-center justify-content-center pt-4 pb-1 mt-3"
+    >
+      <a href="https://www.facebook.com/aliajman.alvy?mibextid=ZbWKwL">
+        <small class="me-5 pe-4">
+          © : <span style="color: rgb(213, 249, 236)">Ali Ajman Alvy</span>
+        </small>
+        <svg
+          style="background-color: #f8f9fa; border-radius: 50%"
+          fill="blue"
+          xmlns="http://www.w3.org/2000/svg"
+          x="0px"
+          y="0px"
+          width="20"
+          height="20"
+          viewBox="0 0 30 30"
+        >
+          <path
+            d="M15,3C8.373,3,3,8.373,3,15c0,6.016,4.432,10.984,10.206,11.852V18.18h-2.969v-3.154h2.969v-2.099c0-3.475,1.693-5,4.581-5 c1.383,0,2.115,0.103,2.461,0.149v2.753h-1.97c-1.226,0-1.654,1.163-1.654,2.473v1.724h3.593L19.73,18.18h-3.106v8.697 C22.481,26.083,27,21.075,27,15C27,8.373,21.627,3,15,3z"
+          ></path>
+        </svg>
+      </a>
+      <br />
+    </footer>
+    <script>
+      const exercises = [
+        {
+          name: "Exercise 1",
+          description:
+            "1. Hands and wrists: Make fists with both hands and pull fists up on the wrists.",
+        },
+        {
+          name: "Exercise 2",
+          description:
+            "2. Lower and upper arms: Make fists and bend both arms up to touch your shoulders.",
+        },
+        {
+          name: "Exercise 3",
+          description: "3. Shoulders: Pull both shoulders up to your ears.",
+        },
+        {
+          name: "Exercise 4",
+          description:
+            "4. Forehead: Pull eyebrows close together, wrinkling forehead.",
+        },
+        { name: "Exercise 5", description: "5. Eyes: Shut eyes tightly." },
+        {
+          name: "Exercise 6",
+          description:
+            "6. Nose and upper cheeks: Scrunch up nose; bring upper lips and cheeks up toward eyes.",
+        },
+        {
+          name: "Exercise 7",
+          description:
+            "7. Lips and lower face: Press lips together; bring edges of lips back toward ears.",
+        },
+        {
+          name: "Exercise 8",
+          description:
+            "8. Tongue and mouth: Teeth together; tongue pushing on upper mouth.",
+        },
+        {
+          name: "Exercise 9",
+          description:
+            "9. Neck: Push head back into chair, floor, or bed, or push chin down to chest.",
+        },
+        {
+          name: "Exercise 10",
+          description: "10. Chest: Take deep breath and hold it.",
+        },
+        {
+          name: "Exercise 11",
+          description:
+            "11. Back: Arch back, bringing shoulder blades together.",
+        },
+        {
+          name: "Exercise 12",
+          description: "12. Stomach: Hold stomach in tightly.",
+        },
+        {
+          name: "Exercise 13",
+          description: "13. Buttocks: Squeeze buttocks together.",
+        },
+        {
+          name: "Exercise 14",
+          description: "14. Upper legs and thighs: Legs out; tense thighs.",
+        },
+        {
+          name: "Exercise 15",
+          description: "15. Calves: Legs out; point toes down.",
+        },
+        {
+          name: "Exercise 16",
+          description:
+            "16. Ankles: Legs out; point toes together, heels out, toes curled under.",
+        },
+      ];
+
+      let currentExercise = 0;
+      let isBreathingIn = true;
+      let timer;
+      let secondsRemaining;
+
+      const timerCircle = document.getElementById("timer-circle");
+      const timerText = document.getElementById("timer-text");
+      const phaseText = document.getElementById("phase-text");
+      const exerciseTitle = document.getElementById("exercise-title");
+      const exerciseDescription = document.getElementById(
+        "exercise-description"
+      );
+      const startBtn = document.getElementById("start-btn");
+      const prevBtn = document.getElementById("prev-btn");
+      const nextBtn = document.getElementById("next-btn");
+
+      function startExercise() {
+        secondsRemaining = isBreathingIn ? 5 : 15;
+        timerText.textContent = secondsRemaining;
+        phaseText.textContent = isBreathingIn ? "Breathe In" : "Breathe Out";
+        timerCircle.classList.toggle("green", isBreathingIn);
+        timerCircle.classList.toggle("red", !isBreathingIn);
+
+        timer = setInterval(() => {
+          secondsRemaining--;
+          timerText.textContent = secondsRemaining;
+          if (secondsRemaining <= 0) {
+            clearInterval(timer);
+            isBreathingIn = !isBreathingIn;
+            if (!isBreathingIn) {
+              setTimeout(startExercise, 1000); // 1-second pause before switching
+            }
+          }
+        }, 1000);
+      }
+
+      function updateExerciseDetails() {
+        exerciseTitle.textContent = exercises[currentExercise].name;
+        exerciseDescription.textContent =
+          exercises[currentExercise].description;
+      }
+
+      startBtn.addEventListener("click", () => {
+        clearInterval(timer);
+        isBreathingIn = true;
+        startExercise();
+      });
+
+      prevBtn.addEventListener("click", () => {
+        clearInterval(timer);
+        currentExercise =
+          (currentExercise - 1 + exercises.length) % exercises.length;
+        resetTimer();
+      });
+
+      nextBtn.addEventListener("click", () => {
+        clearInterval(timer);
+        currentExercise = (currentExercise + 1) % exercises.length;
+        resetTimer();
+      });
+
+      function resetTimer() {
+        updateExerciseDetails();
+        isBreathingIn = true;
+        timerText.textContent = 5;
+        phaseText.textContent = "Breathe In";
+        timerCircle.classList.add("green");
+        timerCircle.classList.remove("red");
+      }
+
+      // Initialize the exercise display
+      updateExerciseDetails();
+    </script>
+  </body>
+</html>
